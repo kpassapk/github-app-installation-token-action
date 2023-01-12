@@ -1,26 +1,38 @@
 import { setFailed, setOutput, getInput } from '@actions/core'
 import { getToken } from 'github-app-installation-token'
-import * as yaml from 'js-yaml'
-import * as fs from "fs"
+import { load } from 'js-yaml'
+import { readFileSync } from "fs"
+
+
+const REPOS_FILE = 'repos.yml'
+
+interface Dependencies {
+  [key: string]: string[]
+}
+
 
 function getDependencies(): string[] {
-  let repos = []
-
+  let deps: string[] = []
+  console.log('Getting dependencies from repos.yml')
   try {
-    const doc = yaml.load(fs.readFileSync('repos.yml', 'utf8'))
+    const doc = load(readFileSync(REPOS_FILE, 'utf8')) as Dependencies
+
     console.log(doc)
-    const thisRepo = process.env.GITHUB_REPOSITORY
-    console.log(thisRepo)
-    const deps = doc[thisRepo]
-    if (deps) {
+    const thisRepo = process.env.GITHUB_REPOSITORY as string
+    console.log("this repo:", thisRepo)
+    const list = doc[thisRepo]
+    if (list) {
       // TODO Assert that deps is an array
-      console.log(deps)
-      repos = deps
+      console.log(list)
+      deps = list
+    } else {
+      deps = []
     }
   } catch (e) {
     console.log(e)
   }
-  return repos
+  console.log(deps)
+  return deps
 }
 
 export async function run(): Promise<void> {
