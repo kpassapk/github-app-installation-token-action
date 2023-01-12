@@ -9,7 +9,7 @@ function getDependencies(): string[] {
   try {
     const doc = yaml.load(fs.readFileSync('repos.yml', 'utf8'))
     console.log(doc)
-    const thisRepo = process.env['GITHUB_REPOSITORY']
+    const thisRepo = process.env.GITHUB_REPOSITORY
     console.log(thisRepo)
     const deps = doc[thisRepo]
     if (deps) {
