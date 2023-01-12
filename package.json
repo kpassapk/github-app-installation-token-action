@@ -10,17 +10,14 @@
     "lint": "eslint src/**/*.ts",
     "build": "esbuild --bundle ./src/index.ts --platform=node --target=node12 --main-fields=main --outdir=dist/",
     "test": "jest",
-    "all": "npm run build && npm run format && npm run lint && npm test"
+    "all": "npm run build && npm run format && npm run lint && npm test",
+    "embed": "npx ts-node src/bin/embedDeps.ts"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/actions/typescript-action.git"
   },
-  "keywords": [
-    "actions",
-    "node",
-    "setup"
-  ],
+  "keywords": ["actions", "node", "setup"],
   "author": "YourNameOrOrganization",
   "license": "MIT",
   "dependencies": {

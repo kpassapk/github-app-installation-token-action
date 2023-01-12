@@ -1,3 +1,7 @@
 {
-  "yalochat/go-commerce-components": ["kafka-golang", "schemas", "yalometrics-golang"]
+  "yalochat/go-commerce-components": [
+    "kafka-golang",
+    "schemas",
+    "yalometrics-golang"
+  ]
 }
