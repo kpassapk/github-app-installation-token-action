@@ -9,16 +9,30 @@ export function loadDependencyFile(file: string): Dependencies {
   console.log('Getting dependencies from repos.yml')
   let doc
   try {
-    doc = load(readFileSync(file, 'utf8')) as Dependencies
-
+    doc = load(readFileSync(file, 'utf8'))
     console.log(doc)
-
-    // TODO verify doc is a map of string to a list of strings
+    doc = verifyDocument(doc)
   } catch (e) {
     doc = {}
     console.log(e)
   }
   return doc
+}
+
+function verifyDocument(doc: unknown): Dependencies {
+  if (typeof doc !== 'object') {
+    throw new Error('Document is not an object')
+  }
+    const map = doc as Dependencies
+    for (const key in map) {
+        if (map.hasOwnProperty(key)) {
+            const element = map[key];
+            if (!Array.isArray(element)) {
+            throw new Error('Element is not an array')
+            }
+        }
+    }
+    return map
 }
 
 // Write the dependencies to src/repos.json

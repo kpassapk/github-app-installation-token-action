@@ -23796,15 +23796,19 @@ function getDependencies(map, repo) {
   const list = map[repo];
   console.log("list", list);
   if (list) {
-    return list;
+    return [...list, repo];
   } else {
-    return [];
+    return [repo];
   }
 }
 
 // src/repos.json
 var repos_default = {
-  "go-commerce-components": ["kafka-golang", "schemas", "yalometrics-golang"]
+  "yalochat/go-commerce-components": [
+    "kafka-golang",
+    "schemas",
+    "yalometrics-golang"
+  ]
 };
 
 // src/main.ts
