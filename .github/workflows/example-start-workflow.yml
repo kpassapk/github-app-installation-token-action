@@ -5,7 +5,7 @@ on: # rebuild any PRs and main branch changes
   push:
     branches:
       - master
-      - 'releases/*'
+      - releases/*
 
 jobs:
   startStepOne:
@@ -16,17 +16,17 @@ jobs:
 
       - uses: ./
         id: installationToken
-        with: 
-          appId: 72750
-          installationId: 10503340
+        with:
+          appId: 280680
+          installationId: 33050319
           privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
       - if: github.event_name == 'push'
-        env: 
+        env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         run: echo '::set-env name=SHA::${{ github.event.after }}'
       - if: github.event_name == 'pull_request'
-        env: 
+        env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         run: echo '::set-env name=SHA::${{ github.event.pull_request.head.sha }}'
       - uses: actions/github-script@v2

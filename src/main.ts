@@ -11,6 +11,9 @@ export async function run(): Promise<void> {
     const baseUrl = getInput('baseUrl', { required: false }) || undefined
 
     const thisRepo = process.env.GITHUB_REPOSITORY as string
+    if(!thisRepo){
+        throw new Error('GITHUB_REPOSITORY is not set')
+    }
     console.log("this repo:", thisRepo)
     const repositoryNames = getDependencies(DEPENDENCY_MAP, thisRepo)
 

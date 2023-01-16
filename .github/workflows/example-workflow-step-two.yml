@@ -12,18 +12,18 @@ jobs:
       - uses: actions/checkout@master
       - uses: ./
         id: installationToken
-        with: 
-          appId: 72750
-          installationId: 10503340
+        with:
+          appId: 280680
+          installationId: 33050319
           privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
       - if: github.event_name == 'push'
         run: echo '::set-env name=SHA::${{ github.event.after }}'
-        env: 
+        env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       - if: github.event_name == 'pull_request'
         run: echo '::set-env name=SHA::${{ github.event.pull_request.head.sha }}'
-        env: 
+        env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       - uses: actions/github-script@v2
         id: stepTwo

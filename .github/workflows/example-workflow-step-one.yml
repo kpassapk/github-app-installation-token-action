@@ -12,9 +12,9 @@ jobs:
       - uses: actions/checkout@master
       - uses: ./
         id: installationToken
-        with: 
-          appId: 72750
-          installationId: 10503340
+        with:
+          appId: 280680
+          installationId: 33050319
           privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
       # This is where the magic begins — the "completion" of this check will trigger
