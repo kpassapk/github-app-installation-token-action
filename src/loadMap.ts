@@ -1,5 +1,5 @@
-import { load } from "js-yaml"
-import { readFileSync, writeFileSync } from "fs"
+import {load} from 'js-yaml'
+import {readFileSync, writeFileSync} from 'fs'
 
 interface Dependencies {
   [key: string]: string[]
@@ -23,16 +23,16 @@ function verifyDocument(doc: unknown): Dependencies {
   if (typeof doc !== 'object') {
     throw new Error('Document is not an object')
   }
-    const map = doc as Dependencies
-    for (const key in map) {
-        if (map.hasOwnProperty(key)) {
-            const element = map[key];
-            if (!Array.isArray(element)) {
-            throw new Error('Element is not an array')
-            }
-        }
+  const map = doc as Dependencies
+  for (const key in map) {
+    if (map.hasOwnProperty(key)) {
+      const element = map[key]
+      if (!Array.isArray(element)) {
+        throw new Error('Element is not an array')
+      }
     }
-    return map
+  }
+  return map
 }
 
 // Write the dependencies to src/repos.json

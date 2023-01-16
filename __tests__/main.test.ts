@@ -6,6 +6,8 @@ import * as actions from '@actions/core'
 import {run} from '../src/main'
 jest.mock('@actions/core')
 
+process.env.GITHUB_REPOSITORY = 'foo/bar'
+
 const setOutput = actions.setOutput as jest.Mock<any>
 const setFailed = actions.setFailed as jest.Mock<any>
 const getInput = actions.getInput as jest.Mock<any>
