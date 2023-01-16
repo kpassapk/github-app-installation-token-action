@@ -1,4 +1,3 @@
 go-commerce-components:
   - kafka-golang
-  - schemas
   - yalometrics-golang

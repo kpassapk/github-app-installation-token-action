@@ -23806,7 +23806,6 @@ function getDependencies(map, repo) {
 var repos_default = {
   "go-commerce-components": [
     "kafka-golang",
-    "schemas",
     "yalometrics-golang"
   ]
 };
@@ -23829,7 +23828,13 @@ async function run() {
     const baseUrl = (0, import_core.getInput)("baseUrl", { required: false }) || void 0;
     const thisRepo = getRepo();
     const repositoryNames = getDependencies(repos_default, thisRepo);
-    const { token } = await (0, import_github_app_installation_token.getToken)({ appId, installationId, privateKey, baseUrl, repositoryNames });
+    const { token } = await (0, import_github_app_installation_token.getToken)({
+      appId,
+      installationId,
+      privateKey,
+      baseUrl,
+      repositoryNames
+    });
     (0, import_core.setOutput)("token", token);
   } catch (error) {
     (0, import_core.setFailed)(error.message);
