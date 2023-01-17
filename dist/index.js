@@ -25240,7 +25240,8 @@ var repos_default = {
     "go-freeway",
     "kafka-concurrent-consumer-golang",
     "kafka-golang",
-    "tracelog-golang"
+    "tracelog-golang",
+    "schemas"
   ]
 };
 
