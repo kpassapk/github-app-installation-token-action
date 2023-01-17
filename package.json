@@ -8,28 +8,38 @@
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
     "lint": "eslint src/**/*.ts",
-    "build": "esbuild --bundle ./src/index.ts --platform=node --target=node12 --main-fields=main --outdir=dist/",
+    "build": "npm run embed && esbuild --bundle ./src/index.ts --platform=node --target=node12 --main-fields=main --outdir=dist/",
     "test": "jest",
     "all": "npm run build && npm run format && npm run lint && npm test",
-    "embed": "npx ts-node src/bin/embedDeps.ts"
+    "embed": "npx ts-node src/bin/embedDeps.ts",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/actions/typescript-action.git"
   },
-  "keywords": ["actions", "node", "setup"],
+  "keywords": [
+    "actions",
+    "node",
+    "setup"
+  ],
   "author": "YourNameOrOrganization",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.0",
     "@types/nock": "^11.1.0",
-    "github-app-installation-token": "^1.2.0"
+    "debug": "^4.3.4",
+    "github-app-installation-token": "^1.2.0",
+    "husky": "^8.0.3",
+    "node-rsa": "^1.1.1"
   },
   "devDependencies": {
     "@octokit/types": "^5.0.1",
+    "@types/debug": "^4.1.7",
     "@types/jest": "^24.0.23",
     "@types/js-yaml": "^4.0.5",
-    "@types/node": "^12.7.12",
+    "@types/node": "^12.20.55",
+    "@types/node-rsa": "^1.1.1",
     "@typescript-eslint/eslint-plugin": "5.27.0",
     "@typescript-eslint/parser": "5.27.0",
     "auto-changelog": "2.4.0",

@@ -1,5 +1,5 @@
 import {setFailed, setOutput, getInput} from '@actions/core'
-import {getToken} from 'github-app-installation-token'
+import {getToken} from './getToken'
 import {getDependencies} from './dependencies'
 import DEPENDENCY_MAP from './repos.json'
 
