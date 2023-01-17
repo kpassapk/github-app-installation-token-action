@@ -40,28 +40,29 @@ jobs:
   createCheckRun:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: ./
-      id: installationToken
-      with: 
-        appId: 72750
-        installationId: 10503340
-        privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
-    - uses: actions/github-script@master
-      with:
-        github-token: ${{ steps.installationToken.outputs.token }}
-        script: |
-          await github.checks.create({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            name: "Installation Token Integration Test",
-            head_sha: "${{ github.event.pull_request.head.sha }}",
-            status: "completed",
-            conclusion: "success"
-          })
+      - uses: actions/checkout@v1
+      - uses: ./
+        id: installationToken
+        with:
+          appId: 280680
+          installationId: 33050319
+          privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
+      - uses: actions/github-script@master
+        with:
+          github-token: ${{ steps.installationToken.outputs.token }}
+          script: |
+            await github.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: "Installation Token Integration Test",
+              head_sha: "${{ github.event.pull_request.head.sha }}",
+              status: "completed",
+              conclusion: "success"
+            })
 ```
 
 #### Note for use with `check_run`
+
 The `GITHUB_SHA` environment variable (and in turn, the `github.sha` variable provided to the expression engine) typically refers to the last _merge_ commit on the branch (see the [`pull_request`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request) event), not the actual commit that the user would see.
 
 **For the `pull_request` event**: use `github.event.pull_request.head.sha` for the correct SHA
@@ -70,26 +71,30 @@ The `GITHUB_SHA` environment variable (and in turn, the `github.sha` variable pr
 
 ## Development
 
-Install the dependencies  
+Install the dependencies
+
 ```bash
 $ npm install
 ```
 
 Build the typescript and package it for distribution
+
 ```bash
 $ npm run build && npm run pack
 ```
 
-Run the tests :heavy_check_mark:  
+Run the tests :heavy_check_mark:
+
 ```bash
 $ npm test
 ```
 
 ## Publish to a distribution branch
 
-Actions are run from GitHub repos so we will checkin the packed dist folder. 
+Actions are run from GitHub repos so we will checkin the packed dist folder.
 
 Then run [ncc](https://github.com/zeit/ncc) and push the results:
+
 ```bash
 $ npm run pack
 $ git add dist
@@ -97,7 +102,7 @@ $ git commit -a -m "prod dependencies"
 $ git push origin releases/v1
 ```
 
-Your action is now published! :rocket: 
+Your action is now published! :rocket:
 
 See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
 

@@ -4,49 +4,50 @@ on: # rebuild any PRs and main branch changes
   push:
     branches:
       - master
-      - 'releases/*'
+      - "releases/*"
 
 jobs:
   build: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version-file: '.nvmrc'
-        cache: 'npm'
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
 
-    - run: |
-        npm install
-        npm run all
+      - run: |
+          npm install
+          npm run all
   test: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: ./
-      id: installationToken
-      with: 
-        appId: 72750
-        installationId: 10503340
-        privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
-    - if: github.event_name == 'push'
-      env: 
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-      run: echo '::set-env name=SHA::${{ github.event.after }}'
-      
-    - if: github.event_name == 'pull_request'
-      env: 
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-      run: echo '::set-env name=SHA::${{ github.event.pull_request.head.sha }}'
-    - uses: actions/github-script@v2
-      with:
-        github-token: ${{ steps.installationToken.outputs.token }}
-        script: |
-          await github.checks.create({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            name: "Installation Token Integration Test",
-            head_sha: "${{ env.SHA }}",
-            status: "completed",
-            conclusion: "success"
-          })
+      - uses: actions/checkout@v1
+      - uses: ./
+        id: installationToken
+        with:
+          appId: 280680
+          installationId: 33050319
+          privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
+      - if: github.event_name == 'push'
+
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+        run: echo '::set-env name=SHA::${{ github.event.after }}'
+
+      - if: github.event_name == 'pull_request'
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+        run: echo '::set-env name=SHA::${{ github.event.pull_request.head.sha }}'
+      - uses: actions/github-script@v2
+        with:
+          github-token: ${{ steps.installationToken.outputs.token }}
+          script: |
+            await github.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: "Installation Token Integration Test",
+              head_sha: "${{ env.SHA }}",
+              status: "completed",
+              conclusion: "success"
+            })
