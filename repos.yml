@@ -2,3 +2,10 @@ go-commerce-components:
   - kafka-golang
   - schemas
   - yalometrics-golang
+
+notifications-freeway:
+  - capi-common
+  - go-freeway
+  - kafka-concurrent-consumer-golang
+  - kafka-golang
+  - tracelog-golang
